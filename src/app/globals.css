@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Professional Deep Forest Palette */
+  --background-dark: #010403;        /* Deepest Black-Green */
+  --emerald-rich: #064e3b;          /* Dark Forest Emerald */
+  --emerald-accent: #10b981;        /* Primary Emerald */
+  --gold-muted: #d4d4d8;            /* Gunmetal Silver (Replaces tacky gold/blue) */
+  --glass-border: rgba(16, 185, 129, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  body {
+    @apply bg-[#010403] text-zinc-300 antialiased;
+    overflow-x: hidden;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* --- Professional Ambient Motion --- */
+  /* Slower, more subtle "Breathing" background */
+  .animate-blob {
+    animation: breathe 15s infinite ease-in-out;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1) translate(0px, 0px); opacity: 0.3; }
+    50% { transform: scale(1.1) translate(20px, -20px); opacity: 0.5; }
+  }
+
+  /* --- Backgrounds --- */
+  .hero-radial-gradient {
+    background: radial-gradient(
+      circle at center, 
+      rgba(6, 78, 59, 0.15) 0%, 
+      var(--background-dark) 80%
+    );
+  }
+
+  /* High-End Glass: Thin, Sharp, Professional */
+  .glass-card {
+    @apply backdrop-blur-3xl bg-zinc-900/40 border border-white/5 shadow-2xl transition-all duration-500;
+  }
+
+  .glass-card:hover {
+    @apply border-emerald-500/30 bg-zinc-900/60 shadow-[0_0_40px_rgba(16,185,129,0.05)];
+  }
+
+  /* --- Typography --- */
+  .text-gradient-primary {
+    /* Emerald to Silver Gradient (Very Professional) */
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-emerald-400 via-emerald-200 to-zinc-500;
+  }
+
+  /* --- Interactive Elements --- */
+  .badge-glow {
+    @apply px-4 py-1.5 text-[10px] font-semibold tracking-[0.3em] text-emerald-400 
+           uppercase border border-emerald-500/20 rounded-sm bg-emerald-500/5 
+           backdrop-blur-md;
+    /* Square corners (rounded-sm) feel more professional than round pills */
+  }
+
+  .btn-primary {
+    @apply bg-emerald-700 hover:bg-emerald-600 text-white 
+           px-8 py-3 rounded-sm font-medium tracking-widest transition-all 
+           hover:shadow-[0_0_25px_rgba(16,185,129,0.2)] active:scale-95;
+  }
+
+  /* --- Scrollbar --- */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #010403; }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-emerald-900/50 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-emerald-700; }
 }
